@@ -84,7 +84,13 @@ class Game
 end
 
 def load_file
-  YAML.load_file('lib/save.dump')
+  if File.exist?('lib/save.dump')
+    YAML.load_file('lib/save.dump')
+  else
+    puts 'These is no saved files! Let\'s start a new game!'
+    puts '##############################'
+    Game.new
+  end
 end
 
 puts 'type anything to start a new game, type load to load your saved game'
