@@ -1,0 +1,20 @@
+--- !ruby/object:Game
+answer: hindquarter
+gamepad:
+- " "
+- i
+- " "
+- " "
+- " "
+- u
+- a
+- " "
+- " "
+- e
+- " "
+missed_letter:
+- o
+- z
+win: false
+lose: false
+life: 4

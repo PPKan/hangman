@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'yaml'
+
 # Main game logic here
 class Game
   attr_reader :answer, :win, :lose
@@ -43,22 +45,24 @@ class Game
 
   private
 
-#   def save_file
-#     File.open('save.dump', 'w') { |f| f.write(YAML.dump(m)) }
-#   end
+  def save_file(save_data)
+    File.open('save.dump', 'w') { |f| f.write(YAML.dump(save_data)) }
+  end
 
   def input
     input_char = ''
     loop do
-      puts 'Guess a single character.'
+      puts 'Guess a single character, or "save" to save game and exit.'
       input_char = gets.chomp.downcase
 
-    #   if input_char == 'save'
-    #     save_file
-    #   end
+      if input_char == 'save'
+        save_file(self)
+        exit
+      end
 
-      if (input_char.length == 1) &&
-         !@missed_letter.include?(input_char)
+      if input_char.length == 1 &&
+         !@missed_letter.include?(input_char) &&
+         !@gamepad.include?(input_char)
         break
       end
     end
@@ -79,7 +83,18 @@ class Game
   end
 end
 
+def load_file
+  YAML.load_file('save.dump')
+end
+
+puts 'type anything to start a new game, type load to load your saved game'
+input = gets.chomp
+
 game = Game.new
+if input == 'load'
+  game = load_file
+  game.display
+end
 
 loop do
   game.play
