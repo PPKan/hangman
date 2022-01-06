@@ -46,7 +46,7 @@ class Game
   private
 
   def save_file(save_data)
-    File.open('save.dump', 'w') { |f| f.write(YAML.dump(save_data)) }
+    File.open('lib/save.dump', 'w') { |f| f.write(YAML.dump(save_data)) }
   end
 
   def input
@@ -71,7 +71,7 @@ class Game
 
   def load_dict
     text_array = []
-    dict = File.open('../5desk.txt')
+    dict = File.open('5desk.txt')
     dict.each do |line|
       text_array << line.chomp.downcase if line.chomp.length.between?(5, 12)
     end
@@ -84,7 +84,7 @@ class Game
 end
 
 def load_file
-  YAML.load_file('save.dump')
+  YAML.load_file('lib/save.dump')
 end
 
 puts 'type anything to start a new game, type load to load your saved game'
